@@ -37,6 +37,8 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
                 problemDetails.Title = "An error occured";
                 break;
         }
+        
+        _logger.LogError($"{problemDetails.Title}:{problemDetails.Detail}");
 
         httpContext.Response.StatusCode = problemDetails.Status.Value;
 

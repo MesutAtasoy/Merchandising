@@ -86,4 +86,9 @@ public sealed class Product : Entity
         IsDeleted = true;
         ModifiedDate = DateTime.UtcNow;
     }
+
+    public override string ToString()
+    {
+        return $"Id:{Id}, Name:{Name}";
+    }
 }

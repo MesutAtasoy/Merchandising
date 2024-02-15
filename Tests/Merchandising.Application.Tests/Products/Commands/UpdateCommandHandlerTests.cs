@@ -7,6 +7,7 @@ using Merchandising.Application.Products.Commands.Update.Request;
 using Merchandising.Application.Tests.Faker;
 using Merchandising.Domain.Entities;
 using Merchandising.Domain.Repositories;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace Merchandising.Application.Tests.Products.Commands;
@@ -18,6 +19,7 @@ public class UpdateCommandHandlerTests
     private Mock<ICategoryRepository> _mockCategoryRepository;
     private Mock<IUnitOfWork> _mockUnitOfWork;
     private UpdateCommandHandler _updateCommandHandler;
+    private Mock<ILogger<UpdateCommandHandler>> _mockLogger;
 
     public UpdateCommandHandlerTests()
     {
@@ -25,8 +27,11 @@ public class UpdateCommandHandlerTests
         _mockProductRepository = new Mock<IProductRepository>();
         _mockCategoryRepository = new Mock<ICategoryRepository>();
         _mockUnitOfWork = new Mock<IUnitOfWork>();
-        _updateCommandHandler = new UpdateCommandHandler(_mockProductRepository.Object, _mockCategoryRepository.Object,
-            _mockUnitOfWork.Object);
+        _mockLogger = new Mock<ILogger<UpdateCommandHandler>>();
+        _updateCommandHandler = new UpdateCommandHandler(_mockProductRepository.Object, 
+            _mockCategoryRepository.Object,
+            _mockUnitOfWork.Object,
+            _mockLogger.Object);
     }
 
 

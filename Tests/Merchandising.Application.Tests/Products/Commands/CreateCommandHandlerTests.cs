@@ -6,6 +6,7 @@ using Framework.Exceptions;
 using Merchandising.Application.Products.Commands.Create;
 using Merchandising.Domain.Entities;
 using Merchandising.Domain.Repositories;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace Merchandising.Application.Tests.Products.Commands;
@@ -16,6 +17,7 @@ public class CreateCommandHandlerTests
     private Mock<IProductRepository> _mockProductRepository;
     private Mock<ICategoryRepository> _mockCategoryRepository;
     private Mock<IUnitOfWork> _mockUnitOfWork;
+    private Mock<ILogger<CreateCommandHandler>> _mockLogger;
     private CreateCommandHandler _createCommandHandler;
 
     public CreateCommandHandlerTests()
@@ -24,8 +26,11 @@ public class CreateCommandHandlerTests
         _mockProductRepository = new Mock<IProductRepository>();
         _mockCategoryRepository = new Mock<ICategoryRepository>();
         _mockUnitOfWork = new Mock<IUnitOfWork>();
-        _createCommandHandler = new CreateCommandHandler(_mockProductRepository.Object, _mockCategoryRepository.Object,
-            _mockUnitOfWork.Object);
+        _mockLogger = new Mock<ILogger<CreateCommandHandler>>();
+        _createCommandHandler = new CreateCommandHandler(_mockProductRepository.Object,
+            _mockCategoryRepository.Object,
+            _mockUnitOfWork.Object,
+            _mockLogger.Object);
     }
 
 
