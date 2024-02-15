@@ -27,7 +27,7 @@ public class ProductController : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedList<ProductDto>))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
     public async Task<IActionResult> Get([FromQuery] GetQuery request)
     {
         return Ok(await _mediator.Send(request));
@@ -39,7 +39,7 @@ public class ProductController : ControllerBase
     /// </summary>
     [HttpGet("live")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedList<ProductDto>))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
     public async Task<IActionResult> GetLives([FromQuery] GetLiveProductsQuery request)
     {
         return Ok(await _mediator.Send(request));
@@ -50,8 +50,8 @@ public class ProductController : ControllerBase
     /// </summary>
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductDto))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
     public async Task<IActionResult> GetById(Guid id)
     {
         return Ok(await _mediator.Send(new GetByIdQuery(id)));
@@ -62,9 +62,9 @@ public class ProductController : ControllerBase
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedList<ProductDto>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
     public async Task<IActionResult> CreateProduct([FromBody] CreateCommand createCommand)
     {
         var product = await _mediator.Send(createCommand);
@@ -77,9 +77,9 @@ public class ProductController : ControllerBase
     /// </summary>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedList<ProductDto>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
     public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] UpdateProductDto updateProductDto)
     {
         var request = new UpdateCommand(id, updateProductDto);
@@ -95,8 +95,8 @@ public class ProductController : ControllerBase
     /// </summary>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedList<ProductDto>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Microsoft.AspNetCore.Mvc.ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
     public async Task<IActionResult> DeleteProduct(Guid id)
     {
         var isDeleted = await _mediator.Send(new DeleteCommand(id));
